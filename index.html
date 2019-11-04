@@ -12,8 +12,15 @@
       </head>
 
       <body>
+    <div id='seatingChart'>
     <div class="floorPlan">
     <img id="wtcPlan" src="assets/wtcFloorPlan.png">
+    </div>
+
+    <div class="seatCircles"></div>
+  </div>
+
+    <div id="employeeList">
     </div>
 
     <body onload="redraw()">
@@ -56,7 +63,7 @@ var loademployees = function() {
             $employeeInfo.append($('<div>').text(record.get('Last Name')));
             $employeeInfo.attr('data-record-id', record.getId());
 
-            $('#employees').append($employeeInfo);
+            $('#employeeList').append($employeeInfo);
         });
 
         fetchNextPage();
@@ -386,7 +393,7 @@ planHeight=($(".floorPlan").height())-10;
 circleRadius = planHeight/110;
 
 
- var svgContainer = d3.select("body").append("svg")
+ var svgContainer = d3.select(".seatCircles").append("svg")
                                      .attr("width", planWidth)
                                      .attr("height", planHeight);
 
