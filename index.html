@@ -6,42 +6,33 @@
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <script src="tooltip.js"></script>
         <script src="apikey.js"></script>
-
-
         <link rel="stylesheet" href="style.css">
-
       </head>
-
       <body>
-    <div id='seatingChart'>
-    <div class="floorPlan">
-    <img id="wtcPlan" src="assets/wtcFloorPlan.png">
-    </div>
-
-    <div class="seatCircles"></div>
-  </div>
-
-    <div id="employeeList">
-    </div>
-
-    <body>
+        <div id='seatingChart'>
+        <div class="floorPlan">
+        <img id="wtcPlan" src="assets/wtcFloorPlan.png">
+        </div>
+        <div class="seatCircles"></div>
+        </div>
+        <div id="employeeList">
+        </div>
       </body>
-
     <script>
 
-var Airtable = require('airtable');
-// Get a base ID for an instance of art gallery example
-if(typeof APIKEY == 'undefined'){
-  let APIKEY = prompt("Please enter your APIKEY", "keyXXXXXXXXXXXXXX");
-}
+      var Airtable = require('airtable');
+      // Get a base ID for an instance of art gallery example
+      if(typeof APIKEY == 'undefined'){
+        let APIKEY = prompt("Please enter your APIKEY", "keyXXXXXXXXXXXXXX");
+      }
 
-var base = new Airtable({ apiKey: APIKEY }).base('appawJUinWynFf8FM');
-var employees = [];
+      var base = new Airtable({ apiKey: APIKEY }).base('appawJUinWynFf8FM');
+      var employees = [];
 
-var loademployees = function() {
-    $('#employees').empty();
+      var loademployees = function() {
+      $('#employees').empty();
 
-    base('Employees').select({
+      base('Employees').select({
         sort: [
             {field: 'Last Name', direction: 'asc'}
         ]
@@ -78,8 +69,7 @@ var loademployees = function() {
     });
 };
 
- loademployees();
-
+loademployees();
 // $(document).ready(function() {
 
 
@@ -161,8 +151,7 @@ function redraw(){
 
 function showDetail(d) {
   var tooltipHeadshot = (d.headshot);
-  var content = "<span class='bold'>"+(d.firstName)+' '+(d.lastName)+"</span><br><span class='light'>"+(d.seat)+"</span>";
-
+  var content = "<img src=" + (d.headshot[0]['url']) + "> </img><span class='bold'>"+(d.firstName)+' '+(d.lastName)+"</span><br><span class='light'>"+(d.seat)+"</span>";
 
   tooltip.showTooltip(content, d3.event);
 }
