@@ -7,7 +7,10 @@
         <script src="tooltip.js"></script>
         <script src="apikey.js"></script>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/css/uikit.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.min.js"></script>
       </head>
+
       <body>
         <div id='seatingChart'>
         <div class="floorPlan">
@@ -17,7 +20,21 @@
         </div>
         <div id="employeeList">
         </div>
+        <table class="uk-table">
+            <caption>This is a table of Ennead!</caption>
+            <thead>
+                <tr>
+                    <!-- <th>Photo</th> -->
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <!-- <th>Phone Extension</th> -->
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
       </body>
+
     <script>
 
       var Airtable = require('airtable');
@@ -36,31 +53,25 @@
         sort: [
             {field: 'Last Name', direction: 'asc'}
         ]
-
-    }).eachPage(function page(records, fetchNextPage) {
+        }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
 
-            var seatName;
-            var firstName = record.get('First Name');
-            var lastName = record.get('Last Name');
-            var seatID = record.get('Seat Link');
-
-          var employeeData = {
-            lastName:record.get('Last Name'),
-            firstName:record.get('First Name'),
-            seat:record.get('Seat Link String'),
-            headshot:record.get('Headshots'),
-          };
-
+            var employeeData = {
+              lastName:record.get('Last Name'),
+              firstName:record.get('First Name'),
+              seat:record.get('Seat Link String'),
+              headshot:record.get('Headshots'),
+              extension:record.get('Extension'),
+            };
 
             employees.push(employeeData);
 
-            var $employeeInfo = $('<div>');
-            $employeeInfo.append($('<h3>').text(record.get('First Name')));
-            $employeeInfo.append($('<div>').text(record.get('Last Name')));
+            var $employeeInfo = $('<tr>');
+            $employeeInfo.append($('<td>').text(record.get('First Name')));
+            $employeeInfo.append($('<td>').text(record.get('Last Name')));
             $employeeInfo.attr('data-record-id', record.getId());
 
-            $('#employeeList').append($employeeInfo);
+            $('#tableBody').append($employeeInfo);
         });
 
         fetchNextPage();
