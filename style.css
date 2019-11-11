@@ -9,15 +9,20 @@
   font-weight: Light;
 }
 
+html{
+  background-color: rgba(0,0,0,0.01);
+}
+
 body{
   font-family: "ProximaNova Light";
+  margin: 20px;
 }
 
 .floorPlan{
 position: absolute;
 top:10px;
 right:0px;
-height: 90vh;
+height: 100vh;
 z-index: -100;
 }
 
@@ -55,10 +60,11 @@ z-index: -100;
 
 .tooltip > img{
   float: left;
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
+  padding: 10px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  clip-path: circle(40%);
+  clip-path: circle(35%);
 }
 
 .bold{
@@ -83,19 +89,51 @@ th{
   background: white;
   position: sticky;
   top: 0;
+  z-index: 100;
+}
+
+.uk-table-hover tbody tr:hover {
+  background: #f0f0f0;
+  cursor: pointer;
+}
+
+td{
+  padding: 0px;
+}
+
+td > img{
+  width: 70px;
+  height: 70px;
+  padding: 10px;
+  display: block;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  clip-path: circle(35%);
+}
+
+#logo{
+  width: 100px;
+  margin-top: 5px;
+}
+
+#employeeDirectoryTitle{
+  font-size: 20px;
+  position: relative;
+  color: rgba(0,0,0,0.7);
+  top: 8px;
+  left: 3px;
 }
 
 #employeeListContainer{
   background-color: white;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  width: 40vw;
-  height: 90vh;
+  /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
+  width: 35vw;
+  height: calc(100vh - 180px);
   overflow:auto;
 }
 
 #employeeListTable{
-  width: 40vw;
-  height: 90vh;
+  width: 35vw;
+  height: 87vh;
   overflow:auto;
 }
 
@@ -103,6 +141,29 @@ th{
   float: right;
 }
 
+.uk-search{
+  border-style: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  border-radius: 5px;
+}
+
+.uk-search-default .uk-search-input{
+  border-style: none;}
+
 #searchBar{
-  width: 40vw;
+  width: 35vw;
+  padding: 5px;
+  margin-top: 15px;
+  border-style: none;
+}
+
+#leftPane{
+  width:38vw;
+  height: 100vh;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: -100;
 }

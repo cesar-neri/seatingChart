@@ -6,8 +6,10 @@
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <script src="tooltip.js"></script>
         <script src="apikey.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/css/uikit.min.css" />
         <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/css/uikit.min.css" />
+
+        <!-- <link rel="stylesheet" href="uikit/uikit.css" /> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.min.js"></script>
       </head>
 
@@ -19,19 +21,24 @@
         <div class="seatCircles"></div>
         </div>
 
+        <div id="leftPane"> </div>
+
+
+        <span class="bold"><img src="assets/ennead_black.png" id="logo"><span id="employeeDirectoryTitle">   Seating Chart</span></span>
+
         <div class="uk-margin">
     <form class="uk-search uk-search-default" id="searchBar">
         <span uk-search-icon></span>
-        <input class="uk-search-input" type="search" placeholder="Search...">
+        <input class="uk-search-input" type="search" placeholder="Search..." onkeyup="searchFunction()" id="searchInput">
     </form>
 </div>
-        <div id="employeeListContainer">
-        <table class="uk-table" id="employeeListTable">
+        <div class="uk-overflow-auto" id="employeeListContainer">
+        <table class="uk-table uk-table-small uk-table-divider uk-table-hover uk-table-middle" id="employeeListTable">
             <thead>
                 <tr>
-                    <!-- <th>Photo</th> -->
-                    <th>First Name</th>
+                    <th class="headshotWidthColumn"></th>
                     <th>Last Name</th>
+                    <th>First Name</th>
                     <th>Extension</th>
                 </tr>
             </thead>
@@ -73,14 +80,17 @@
 
             employees.push(employeeData);
 
-            var $employeeInfo = $('<tr>');
-            $employeeInfo.append($('<td>').text(record.get('First Name')));
-            $employeeInfo.append($('<td>').text(record.get('Last Name')));
+            var $employeeInfo = $('<tr height="70">');
+            $employeeInfo.append($('<td width="70"><img src="'+(record.get('Headshots'))[0]['url']+'">'));
+            $employeeInfo.append($('<td width="150">').text(record.get('Last Name')));
+            $employeeInfo.append($('<td width="150">').text(record.get('First Name')));
             $employeeInfo.append($('<td>').text(record.get('Extension')));
             $employeeInfo.attr('data-record-id', record.getId());
 
 
             $('#tableBody').append($employeeInfo);
+
+            console.log(employeeData);
 
         });
 
@@ -171,7 +181,7 @@ function redraw(){
 
 function showDetail(d) {
   // var tooltipHeadshot = (d.headshot);
-  var content = "<img src=" + (d.headshot[0]['url']) + "> </img><span class='bold'>"+(d.firstName)+' '+(d.lastName)+"</span><br><span class='light'>"+(d.seat)+"</span>";
+  var content = "<img src=" + (d.headshot[0]['url']) + "> </img><span class='bold'>"+(d.firstName)+' '+(d.lastName)+"</span><br><span class='light'>ext. "+(d.extension)+"</span><br><span class='light'>"+(d.seat)+"</span>";
 
   tooltip.showTooltip(content, d3.event);
 }
@@ -448,6 +458,29 @@ var seatCenters = {
  NA06: { x:0.408424, y:0.945716},
  NA04: { x:0.372096, y:0.971563},
  W100: { x:0.194200, y:0.252543}};
+
+function searchFunction() {
+   // Declare variables
+   var input, filter, table, tr, td, i, txtValue;
+   input = document.getElementById("searchInput");
+   filter = input.value.toUpperCase();
+   table = document.getElementById("employeeListTable");
+   tr = table.getElementsByTagName("tr");
+
+   // Loop through all table rows, and hide those who don't match the search query
+   for (i = 0; i < tr.length; i++) {
+     td = tr[i].getElementsByTagName("td")[1];
+     if (td) {
+       txtValue = td.textContent || td.innerText;
+       console.log(txtValue);
+       if (txtValue.toUpperCase().indexOf(filter) > -1) {
+         tr[i].style.display = "";
+       } else {
+         tr[i].style.display = "none";
+       }
+     }
+   }
+ }
 
 </script>
 
