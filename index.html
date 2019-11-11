@@ -18,21 +18,28 @@
         </div>
         <div class="seatCircles"></div>
         </div>
-        <div id="employeeList">
-        </div>
-        <table class="uk-table">
-            <caption>This is a table of Ennead!</caption>
+
+        <div class="uk-margin">
+    <form class="uk-search uk-search-default" id="searchBar">
+        <span uk-search-icon></span>
+        <input class="uk-search-input" type="search" placeholder="Search...">
+    </form>
+</div>
+        <div id="employeeListContainer">
+        <table class="uk-table" id="employeeListTable">
             <thead>
                 <tr>
                     <!-- <th>Photo</th> -->
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <!-- <th>Phone Extension</th> -->
+                    <th>Extension</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
             </tbody>
         </table>
+      </div>
+
       </body>
 
     <script>
@@ -69,9 +76,12 @@
             var $employeeInfo = $('<tr>');
             $employeeInfo.append($('<td>').text(record.get('First Name')));
             $employeeInfo.append($('<td>').text(record.get('Last Name')));
+            $employeeInfo.append($('<td>').text(record.get('Extension')));
             $employeeInfo.attr('data-record-id', record.getId());
 
+
             $('#tableBody').append($employeeInfo);
+
         });
 
         fetchNextPage();
@@ -81,7 +91,6 @@
 };
 
 loademployees();
-// $(document).ready(function() {
 
 
 var planWidth;
@@ -161,7 +170,7 @@ function redraw(){
 }
 
 function showDetail(d) {
-  var tooltipHeadshot = (d.headshot);
+  // var tooltipHeadshot = (d.headshot);
   var content = "<img src=" + (d.headshot[0]['url']) + "> </img><span class='bold'>"+(d.firstName)+' '+(d.lastName)+"</span><br><span class='light'>"+(d.seat)+"</span>";
 
   tooltip.showTooltip(content, d3.event);
@@ -177,7 +186,7 @@ function hideDetail(d) {
          redraw();
                                  });
 
- var seatCenters = {
+var seatCenters = {
  N105: { x:0.470698, y:0.799218},
  E110: { x:0.970629, y:0.185885},
  S106: { x:0.568125, y:0.200109},
