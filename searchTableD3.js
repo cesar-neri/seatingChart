@@ -19,7 +19,7 @@ class SearchTableD3 {
     this.searchEmployees();
     this.searchTable();
 
-    this.selectD3DataIN();
+    this.update();
   }
 
   //searches this.data for table input
@@ -67,66 +67,56 @@ class SearchTableD3 {
     }
   }
 
-
-  //show all data in employees[]
-  selectD3All() {
-    var circles = this.container.selectAll("circle")
-      .data(this.data)
-      .enter()
-      .append("circle")
-      .on('mouseover', showDetail)
-      .on('mouseout', hideDetail);
-
-    var circleAttributes = circles
-      .attr("cx", seatingPosX)
-      .attr("cy", seatingPosY)
-      .attr("r", circleRadius)
-      .attr("opacity", "0.15")
-      .attr("class", "seatCircle")
-      .attr("firstName", function(d) {
-        return (d.firstName)
-      })
-      .attr("lastName", function(d) {
-        return (d.lastName)
-      })
-      .attr("seat", function(d) {
-        return (d.seat)
-      })
-      .attr("headshot", headshotURL)
-      .style("fill", "blue");
-  }
-
   //show data that matches string
-  selectD3DataIN() {
+  update() {
+    var t = d3.transition()
+        .duration(750);
+
     this.container = d3.select("svg");
-    console.log(search.searchData.dataIN);
+    //console.log(this.searchData.dataIN);
+
+    //this is a little not good - planHeight should be parameterized
+    let cRad = planHeight/110;
 
     var circle = this.container.selectAll("circle")
-      .data(search.searchData.dataIN);
+      .data(this.searchData.dataIN, function(d) { return d; });
 
-    circle.exit().remove();
+    //EXIT
+    circle.exit()
+        .transition(t)
+        .remove();
+
+    //UPDATE
+    // circle.attr("cx", function(d) { return (d.cx) })
+    //       .attr("cy", function(d) { return (d.cy) })
+    //       .attr("r", cRad)
+    //       .attr("opacity", "0.15")
+    //       .attr("class", "seatCircle")
+    //       .attr("firstName", function(d) { return (d.firstName) })
+    //       .attr("lastName", function(d) { return (d.lastName) })
+    //       .attr("seat", function(d) { return (d.seat) })
+    //       .attr("headshot", this.headshotURL)
+    //       .style("fill", "red");
+    circle.style("fill", "red");
+
+
+
 
     circle.enter().append("circle")
       .attr("cx", this.seatingPosX)
       .attr("cy", this.seatingPosY)
-      .attr("r", this.circleRadius)
+      .attr("r", cRad)
       .attr("opacity", "0.15")
       .attr("class", "seatCircle")
-      .attr("firstName", function(d) {
-        return (d.firstName)
-      })
-      .attr("lastName", function(d) {
-        return (d.lastName)
-      })
-      .attr("seat", function(d) {
-        return (d.seat)
-      })
+      .attr("firstName", function(d) { return (d.firstName) })
+      .attr("lastName", function(d) { return (d.lastName) })
+      .attr("seat", function(d) { return (d.seat) })
       .attr("headshot", this.headshotURL)
-      .style("fill", "blue");
+      .style("fill", "red");
   }
 
-
   static seatingPosX(d) {
+
     var pName = (d.lastName);
     var dSeat = String(d.seat);
     var seatPos = seatCenters[dSeat];

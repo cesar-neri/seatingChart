@@ -83,6 +83,7 @@
                   seat:record.get('Seat Link String'),
                   headshot:record.get('Headshots'),
                   extension:record.get('Extension'),
+                  recordID:record.getId()
                 };
 
                 employees.push(employeeData);
@@ -130,9 +131,9 @@
                                            .attr("height", planHeight);
 
       search.container = svgContainer;
-      
+
       var circles = svgContainer.selectAll("circle")
-                                .data(employees)
+                                .data(employees, function(d) { return d; })
                                 .enter()
                                 .append("circle")
                                 .on('mouseover', SearchTableD3.showDetail)
