@@ -41,9 +41,9 @@
             <thead>
                 <tr>
                     <th class="headshotWidthColumn"></th>
-                    <th>Last Name</th>
-                    <th>First Name</th>
+                    <th>Name</th>
                     <th>Extension</th>
+                    <th>Seat</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
@@ -88,11 +88,12 @@
 
                 employees.push(employeeData);
 
-                var $employeeInfo = $('<tr height="70">');
+                var $employeeInfo = $('<tr>');
                 $employeeInfo.append($('<td width="70"><img src="'+(record.get('Headshots'))[0]['url']+'">'));
-                $employeeInfo.append($('<td width="150">').text(record.get('Last Name')));
-                $employeeInfo.append($('<td width="150">').text(record.get('First Name')));
+                $employeeInfo.append($('<td width="200">').text(record.get('First Name')+" "+record.get('Last Name')));
+                // $employeeInfo.append($('<td width="150">').text(record.get('First Name')));
                 $employeeInfo.append($('<td>').text(record.get('Extension')));
+                $employeeInfo.append($('<td>').text(record.get('Seat Link String')));
                 $employeeInfo.attr('data-record-id', record.getId());
 
 
