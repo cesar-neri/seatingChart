@@ -124,8 +124,8 @@
 
     function draw(){
 
-      planWidth=($(".floorPlan").width())-10;
-      planHeight=($(".floorPlan").height())-10;
+      planWidth=($(".floorPlan").width())-12;
+      planHeight=($(".floorPlan").height())-6;
 
       circleRadius = planHeight/110;
 
@@ -158,8 +158,8 @@
 
     $(window).resize(function(){
 
-       planWidth=($("#wtcPlan").width())-10;
-       planHeight=($("#wtcPlan").height())-10;
+      planWidth=($(".floorPlan").width())-12;
+      planHeight=($(".floorPlan").height())-6;
 
        search.container = d3.select("svg").attr("width", planWidth).attr("height", planHeight);
 
