@@ -20,8 +20,9 @@ body{
 
 .floorPlan{
 position: absolute;
-top:7vh;
-right:7vh;
+margin: 20px;
+top:5vh;
+right: 5vw;
 height: 86vh;
 z-index: -100;
 }
@@ -138,7 +139,11 @@ td > img{
 }
 
 #seatingChart{
-  float: right;
+  float:right;
+  margin-top:5vh;
+  margin-right: 5vw;
+  padding-top:5px;
+  padding-right: 3px;
 }
 
 .uk-search{
