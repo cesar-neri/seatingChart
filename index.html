@@ -106,9 +106,8 @@
           search = new SearchTableD3(employees, document.getElementById("searchInput"));
           let rows = document.getElementsByClassName("row");
           for (let r of rows){
-            r.addEventListener("click", search.selectOne);
+            r.addEventListener("click", search.selectOne.bind(search));
           }
-          console.log(rows);
           draw();
       });
     };

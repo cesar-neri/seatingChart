@@ -12,6 +12,7 @@ class SearchTableD3 {
     };
 
     this.container = d3.select("svg");
+    this.selectID;
   }
 
   // main search function
@@ -92,6 +93,24 @@ class SearchTableD3 {
     }
   }
 
+  selectOne(event){
+    let recordID = event.path[1].dataset.recordId;
+
+    let found = this.searchData.dataIN.find(function(element){
+      return element.recordID == recordID;
+    });
+    // console.log(found);
+
+    let foundArray = [found];
+
+    var circles = this.container.selectAll("circle")
+      .data(foundArray, function(d) { return d.recordID; });
+
+    //EXIT
+    circles.exit()
+      .remove();
+  }
+
   //show data that matches string
   update() {
     var t = d3.transition()
@@ -103,9 +122,7 @@ class SearchTableD3 {
     let cRad = planHeight / 110;
 
     var circles = this.container.selectAll("circle")
-      .data(this.searchData.dataIN, function(d) {
-        return d.recordID;
-      });
+      .data(this.searchData.dataIN, function(d) { return d.recordID; });
 
     //EXIT
     circles.exit()
