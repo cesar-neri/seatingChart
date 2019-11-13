@@ -100,15 +100,49 @@ class SearchTableD3 {
       return element.recordID == recordID;
     });
     // console.log(found);
-
     let foundArray = [found];
 
     var circles = this.container.selectAll("circle")
       .data(foundArray, function(d) { return d.recordID; });
 
+    let cRad = planHeight / 110;
+
+    circles.transition()
+      .ease(d3.easeQuad)
+      .duration(150)
+      .attr("r", cRad * 3);
+
     //EXIT
     circles.exit()
+      .transition()
+      .ease(d3.easeQuad)
+      .duration(150)
+      .attr("r", 0.1)
       .remove();
+
+    circles.enter().append("circle")
+      .on('mouseover', SearchTableD3.showDetail)
+      .on('mouseout', SearchTableD3.hideDetail)
+      .attr("cx", SearchTableD3.seatingPosX)
+      .attr("cy", SearchTableD3.seatingPosY)
+      .attr("r", cRad)
+      .attr("opacity", "0.15")
+      .attr("class", "seatCircle")
+      .attr("firstName", function(d) {
+        return (d.firstName)
+      })
+      .attr("lastName", function(d) {
+        return (d.lastName)
+      })
+      .attr("seat", function(d) {
+        return (d.seat)
+      })
+      .attr("headshot", this.headshotURL)
+      .style("fill", "blue")
+      .transition()
+      .ease(d3.easeQuad)
+      .duration(100)
+      .attr("r", cRad * 3);
   }
 
   //show data that matches string
@@ -124,12 +158,19 @@ class SearchTableD3 {
     var circles = this.container.selectAll("circle")
       .data(this.searchData.dataIN, function(d) { return d.recordID; });
 
+    //UPDATE
+    circles.transition()
+      .ease(d3.easeQuad)
+      .duration(100)
+      .attr("r", cRad);
+
     //EXIT
     circles.exit()
+      .transition()
+      .ease(d3.easeQuad)
+      .duration(1000)
+      .attr("r", 0)
       .remove();
-
-    //UPDATE
-    // circle...
 
     //
     circles.enter().append("circle")
@@ -151,6 +192,10 @@ class SearchTableD3 {
       })
       .attr("headshot", this.headshotURL)
       .style("fill", "blue");
+  }
+
+  deselect(){
+    this.update();
   }
 
   static seatingPosX(d) {

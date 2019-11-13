@@ -108,6 +108,7 @@
           for (let r of rows){
             r.addEventListener("click", search.selectOne.bind(search));
           }
+          document.getElementById("seatingChart").addEventListener("click", search.deselect.bind(search));
           draw();
       });
     };
