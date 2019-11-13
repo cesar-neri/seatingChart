@@ -12,6 +12,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.min.js"></script>
 
       <script src="apikey.js"></script>
+      <!-- <script src="\\ea\dfs\jobs\Ennead Applied Computing\apikey.js"></script> -->
       <script src="seatCenters.js"></script>
       <script src="searchTableD3.js"></script>
     </head>
@@ -104,8 +105,11 @@
         }, function done(error) {
           search = new SearchTableD3(employees, document.getElementById("searchInput"));
           let rows = document.getElementsByClassName("row");
+          for (let r of rows){
+            r.addEventListener("click", search.selectOne);
+          }
           console.log(rows);
-          redraw();
+          draw();
       });
     };
 
@@ -118,7 +122,7 @@
     var tooltip = floatingTooltip('gates_tooltip', 240);
     var circleAttributes;
 
-    function redraw(){
+    function draw(){
 
       planWidth=($(".floorPlan").width())-10;
       planHeight=($(".floorPlan").height())-10;
@@ -178,7 +182,6 @@
          .attr("headshot", this.headshotURL)
          .style("fill", "blue");
     });
-
 
     </script>
 
