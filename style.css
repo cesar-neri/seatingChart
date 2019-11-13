@@ -130,6 +130,7 @@ td > img{
   width: 35vw;
   height: calc(100vh - 180px);
   overflow:auto;
+  overflow-x: hidden;
 }
 
 #employeeListTable{
