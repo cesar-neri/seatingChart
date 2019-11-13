@@ -88,7 +88,7 @@
 
                 employees.push(employeeData);
 
-                var $employeeInfo = $('<tr>');
+                var $employeeInfo = $('<tr class="row">');
                 $employeeInfo.append($('<td width="70"><img src="'+(record.get('Headshots'))[0]['url']+'">'));
                 $employeeInfo.append($('<td width="200">').text(record.get('First Name')+" "+record.get('Last Name')));
                 // $employeeInfo.append($('<td width="150">').text(record.get('First Name')));
@@ -103,7 +103,8 @@
             fetchNextPage();
         }, function done(error) {
           search = new SearchTableD3(employees, document.getElementById("searchInput"));
-          console.log(d3);
+          let rows = document.getElementsByClassName("row");
+          console.log(rows);
           redraw();
       });
     };
@@ -119,9 +120,6 @@
 
     function redraw(){
 
-      var widthOffset=3;
-      var heightOffset=0;
-
       planWidth=($(".floorPlan").width())-10;
       planHeight=($(".floorPlan").height())-10;
 
@@ -132,9 +130,10 @@
                                            .attr("height", planHeight);
 
       search.container = svgContainer;
+      search.searchData.dataIN = employees;
 
       var circles = svgContainer.selectAll("circle")
-                                .data(employees, function(d) { return d; })
+                                .data(employees, function(d) { return d.recordID; })
                                 .enter()
                                 .append("circle")
                                 .on('mouseover', SearchTableD3.showDetail)
@@ -154,8 +153,30 @@
     }
 
     $(window).resize(function(){
-             d3.select("svg").remove();
-             redraw();
+
+       planWidth=($("#wtcPlan").width())-10;
+       planHeight=($("#wtcPlan").height())-10;
+
+       search.container = d3.select("svg").attr("width", planWidth).attr("height", planHeight);
+
+       //this is a little not good - planHeight should be parameterized
+       let cRad = planHeight/110;
+
+       var circles = search.container.selectAll("circle")
+         .data(search.searchData.dataIN, function(d) { return d.recordID; });
+
+       //UPDATE
+       circles
+         .attr("cx", SearchTableD3.seatingPosX)
+         .attr("cy", SearchTableD3.seatingPosY)
+         .attr("r", cRad)
+         .attr("opacity", "0.15")
+         .attr("class", "seatCircle")
+         .attr("firstName", function(d) { return (d.firstName) })
+         .attr("lastName", function(d) { return (d.lastName) })
+         .attr("seat", function(d) { return (d.seat) })
+         .attr("headshot", this.headshotURL)
+         .style("fill", "blue");
     });
 
 

@@ -33,7 +33,7 @@ class SearchTableD3 {
     this.searchData.dataOUT = [];
 
     for (let i = 0; i < this.data.length; i++) {
-      if (this.data[i].lastName.toUpperCase().indexOf(filter) > -1) {
+      if (this.data[i].lastName.toUpperCase().indexOf(filter) > -1 || this.data[i].firstName.toUpperCase().indexOf(filter) > -1) {
         this.searchData.dataIN.push(this.data[i]);
       } else {
         this.searchData.dataOUT.push(this.data[i]);
@@ -70,49 +70,45 @@ class SearchTableD3 {
   //show data that matches string
   update() {
     var t = d3.transition()
-        .duration(750);
+      .duration(750);
 
     this.container = d3.select("svg");
-    //console.log(this.searchData.dataIN);
 
     //this is a little not good - planHeight should be parameterized
-    let cRad = planHeight/110;
+    let cRad = planHeight / 110;
 
-    var circle = this.container.selectAll("circle")
-      .data(this.searchData.dataIN, function(d) { return d; });
+    var circles = this.container.selectAll("circle")
+      .data(this.searchData.dataIN, function(d) {
+        return d.recordID;
+      });
 
     //EXIT
-    circle.exit()
-        .transition(t)
-        .remove();
+    circles.exit()
+      .remove();
 
     //UPDATE
-    // circle.attr("cx", function(d) { return (d.cx) })
-    //       .attr("cy", function(d) { return (d.cy) })
-    //       .attr("r", cRad)
-    //       .attr("opacity", "0.15")
-    //       .attr("class", "seatCircle")
-    //       .attr("firstName", function(d) { return (d.firstName) })
-    //       .attr("lastName", function(d) { return (d.lastName) })
-    //       .attr("seat", function(d) { return (d.seat) })
-    //       .attr("headshot", this.headshotURL)
-    //       .style("fill", "red");
-    circle.style("fill", "red");
+    // circle...
 
-
-
-
-    circle.enter().append("circle")
-      .attr("cx", this.seatingPosX)
-      .attr("cy", this.seatingPosY)
+    //
+    circles.enter().append("circle")
+      .on('mouseover', SearchTableD3.showDetail)
+      .on('mouseout', SearchTableD3.hideDetail)
+      .attr("cx", SearchTableD3.seatingPosX)
+      .attr("cy", SearchTableD3.seatingPosY)
       .attr("r", cRad)
       .attr("opacity", "0.15")
       .attr("class", "seatCircle")
-      .attr("firstName", function(d) { return (d.firstName) })
-      .attr("lastName", function(d) { return (d.lastName) })
-      .attr("seat", function(d) { return (d.seat) })
+      .attr("firstName", function(d) {
+        return (d.firstName)
+      })
+      .attr("lastName", function(d) {
+        return (d.lastName)
+      })
+      .attr("seat", function(d) {
+        return (d.seat)
+      })
       .attr("headshot", this.headshotURL)
-      .style("fill", "red");
+      .style("fill", "blue");
   }
 
   static seatingPosX(d) {
