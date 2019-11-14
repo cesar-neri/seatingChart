@@ -110,7 +110,8 @@ class SearchTableD3 {
     circles.transition()
       .ease(d3.easeQuad)
       .duration(150)
-      .attr("r", cRad * 3);
+      .attr("r", cRad * 2)
+      .attr("opacity", "0.4");
 
     //EXIT
     circles.exit()
@@ -118,6 +119,7 @@ class SearchTableD3 {
       .ease(d3.easeQuad)
       .duration(150)
       .attr("r", 0.1)
+      .attr("opacity", "0.15")
       .remove();
 
     circles.enter().append("circle")

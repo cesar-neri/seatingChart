@@ -156,6 +156,10 @@ td > img{
 .uk-search-default .uk-search-input{
   border-style: none;}
 
+.floatRight{
+  float: right;
+}
+
 #searchBar{
   width: 35vw;
   padding: 5px;
