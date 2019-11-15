@@ -2,10 +2,10 @@
 <html>
     <head>
       <script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
-      <script src="/build/airtable.browser.js"></script>
-      <script src="https://d3js.org/d3.v5.min.js"></script>
-      <script src="tooltip.js"></script>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/css/uikit.min.css" />
+      <script src="https://d3js.org/d3.v5.min.js"></script>
+      <script src="/build/airtable.browser.js"></script>
+      <script src="tooltip.js"></script>
       <link rel="stylesheet" href="style.css">
 
       <!-- <link rel="stylesheet" href="uikit/uikit.css" /> -->
@@ -55,11 +55,12 @@
     <script>
       // import {searchTableD3} from "./searchTableD3.js";
 
-      var Airtable = require('airtable');
+      // var Airtable = require('airtable');
+      var Airtable = new Airtable();
       // Get a base ID for an instance of art gallery example
-      if(typeof APIKEY == 'undefined'){
-        let APIKEY = prompt("Please enter your APIKEY", "keyXXXXXXXXXXXXXX");
-      }
+      // if(typeof APIKEY == 'undefined'){
+      //   let APIKEY = prompt("Please enter your APIKEY", "keyXXXXXXXXXXXXXX");
+      // }
 
       var base = new Airtable({ apiKey: APIKEY }).base('appawJUinWynFf8FM');
 

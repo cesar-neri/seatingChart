@@ -127,8 +127,8 @@ class SearchTableD3 {
       .on('mouseout', SearchTableD3.hideDetail)
       .attr("cx", SearchTableD3.seatingPosX)
       .attr("cy", SearchTableD3.seatingPosY)
-      .attr("r", cRad)
-      .attr("opacity", "0.15")
+      .attr("r", cRad * 2)
+      .attr("opacity", "0.4")
       .attr("class", "seatCircle")
       .attr("firstName", function(d) {
         return (d.firstName)
@@ -164,6 +164,7 @@ class SearchTableD3 {
     circles.transition()
       .ease(d3.easeQuad)
       .duration(100)
+      .attr("opacity", "0.15")
       .attr("r", cRad);
 
     //EXIT
