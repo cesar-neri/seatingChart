@@ -61,7 +61,7 @@
       // if(typeof APIKEY == 'undefined'){
       //   let APIKEY = prompt("Please enter your APIKEY", "keyXXXXXXXXXXXXXX");
       // }
-
+      var APIKEY = process.env['APIKEY'];
       var base = new Airtable({ apiKey: APIKEY }).base('appawJUinWynFf8FM');
 
       //Employee data
