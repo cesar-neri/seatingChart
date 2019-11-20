@@ -6,7 +6,7 @@
       <script src="https://d3js.org/d3.v5.min.js"></script>
       <script src="tooltip.js"></script>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/css/uikit.min.css" />
-      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="stylePrintable.css">
 
       <!-- <link rel="stylesheet" href="uikit/uikit.css" /> -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.min.js"></script>
@@ -25,11 +25,11 @@
         <div class="seatCircles"></div>
       </div>
 
-      <div id="leftPane"> </div>
+      <div id="leftPane hide"> </div>
 
-      <span class="bold"><img src="assets/ennead_black.png" id="logo"><span id="employeeDirectoryTitle">   Seating Chart</span></span>
+      <span class="bold hide"><img src="assets/ennead_black.png" id="logo"><span id="employeeDirectoryTitle">   Seating Chart</span></span>
 
-      <div class="uk-margin">
+      <div class="uk-margin hide">
         <form class="uk-search uk-search-default" id="searchBar">
           <span uk-search-icon></span>
           <input class="uk-search-input" type="search" placeholder="Search..." id="searchInput">
@@ -37,7 +37,7 @@
         </form>
       </div>
 
-      <div class="uk-overflow-auto" id="employeeListContainer">
+      <div class="uk-overflow-auto hide" id="employeeListContainer">
         <table class="uk-table uk-table-small uk-table-divider uk-table-hover uk-table-middle" id="employeeListTable">
             <thead>
                 <tr>
@@ -157,8 +157,16 @@
      var text = svgContainer.selectAll("text")
                                .data(employees, function(d) { return d.recordID; })
                                .enter()
-                               .append("text")
-    }
+                               .append("text");
+
+       var textLabels = text
+                              .attr("x", SearchTableD3.seatingPosX)
+                              .attr("y", SearchTableD3.seatingPosY)
+                              .attr("font-size", "10px")
+                              .attr("font-color", "black")
+                              .attr("font-style", "ProximaNova Light")
+                              .attr("z-index", "1000");
+                              };
 
     $(window).resize(function(){
 
